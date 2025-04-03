@@ -1,0 +1,25 @@
+{
+  "name": "vendor-matching",
+  "version": "1.0.0",
+  "description": "ULS Sync is an advanced solution developed by ULS, utilizing unique algorithms to intelligently match businesses with the most suitable Technology Partner. By analyzing key criteria, ULS Sync streamlines the selection process, ensuring optimal compatibility and efficiency.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TysonRag/ULS_Sync.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TysonRag/ULS_Sync/issues"
+  },
+  "homepage": "https://github.com/TysonRag/ULS_Sync#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  }
+}

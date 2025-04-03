@@ -3,20 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ULS Sync</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <title>Vendor Matching</title>
 </head>
 <body>
-    <header>
-        <h1>Welcome to ULS Sync</h1>
-        <p>Your ultimate learning solution.</p>
-    </header>
+    <h1>Vendor Matching Form</h1>
+    
+    <form id="vendorForm">
+        <label for="learning_type">Learning Type:</label>
+        <input type="text" id="learning_type" name="learning_type" required><br><br>
+        
+        <label for="industry">Industry:</label>
+        <input type="text" id="industry" name="industry" required><br><br>
+        
+        <label for="preferred_outcomes">Preferred Outcomes:</label>
+        <input type="text" id="preferred_outcomes" name="preferred_outcomes" required><br><br>
+        
+        <button type="submit">Submit</button>
+    </form>
 
-    <main>
-        <p>This is the homepage of ULS Sync.</p>
-        <button onclick="sayHello()">Click Me!</button>
-    </main>
+    <div id="results"></div>
 
-    <script src="assets/js/script.js"></script>
+    <script>
+        document.getElementById('vendorForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            // Get values from the form
+            const learningType = document.getElementById('learning_type').value;
+            const industry = document.getElementById('industry').value;
+            const preferredOutcomes = document.getElementById('preferred_outcomes').value;
+
+            // Send data to API
+            const response = await fetch('http://localhost:3000/api/match-vendors', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    learning_type: learningType,
+                    industry: industry,
+                    preferred_outcomes: preferredOutcomes
+                })
+            });
+
+            // Handle the response
+            const data = await response.json();
+            const resultsDiv = document.getElementById('results');
+
+            if (response.ok) {
+                resultsDiv.innerHTML = '<h3>Matched Vendors:</h3><ul>' + data.vendors.map(vendor => `<li>${vendor.vendor_name} (Score: ${vendor.total_match_score})</li>`).join('') + '</ul>';
+            } else {
+                resultsDiv.innerHTML = `<p>${data.message}</p>`;
+            }
+        });
+    </script>
 </body>
 </html>
